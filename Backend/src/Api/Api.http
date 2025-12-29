@@ -1,0 +1,175 @@
+### Variables   
+@baseUrl = http://localhost:5096/api
+@companyId = 1
+@pageId = 1
+@blockId = 1
+
+### Companies
+
+# Get all companies
+GET {{baseUrl}}/companies
+
+###
+# Get company by ID
+GET {{baseUrl}}/companies/{{companyId}}
+
+###
+# Get company with pages
+GET {{baseUrl}}/companies/{{companyId}}/pages
+
+###
+# Create a new company
+POST {{baseUrl}}/companies
+Content-Type: application/json
+
+{
+  "name": "Lightning Corp"
+}
+
+###
+# Update company
+PUT {{baseUrl}}/companies/{{companyId}}
+Content-Type: application/json
+
+{
+  "name": "Lightning Corporation Updated"
+}
+
+###
+# Delete company
+DELETE {{baseUrl}}/companies/{{companyId}}
+
+### Pages
+
+# Get page by ID
+GET {{baseUrl}}/pages/{{pageId}}
+
+###
+# Get page with blocks
+GET {{baseUrl}}/pages/{{pageId}}/blocks
+
+###
+# Get all pages for a company
+GET {{baseUrl}}/pages/company/{{companyId}}
+
+###
+# Create a new page
+POST {{baseUrl}}/pages
+Content-Type: application/json
+
+{
+  "title": "Special Offer - Winter 2024",
+  "companyId": 1
+}
+
+###
+# Update page
+PUT {{baseUrl}}/pages/{{pageId}}
+Content-Type: application/json
+
+{
+  "title": "Updated Offer Page",
+  "PageStatus": "Published"
+}
+
+###
+# Publish page
+POST {{baseUrl}}/pages/{{pageId}}/publish
+
+###
+# Unpublish page
+POST {{baseUrl}}/pages/{{pageId}}/unpublish
+
+###
+# Delete/Archive page
+DELETE {{baseUrl}}/pages/{{pageId}}
+
+### Blocks
+
+# Get block by ID
+GET {{baseUrl}}/blocks/{{blockId}}
+
+###
+# Get all blocks for a page
+GET {{baseUrl}}/blocks/page/{{pageId}}
+
+###
+# Create a Plan Card block
+POST {{baseUrl}}/blocks
+Content-Type: application/json
+
+{
+  "type": "PlanCard",
+  "order": 1,
+  "pageId": 1,
+  "content": "{\"title\":\"Premium Plan\",\"price\":\"$99/mo\",\"features\":[\"Feature 1\",\"Feature 2\",\"Feature 3\"]}"
+}
+
+###
+# Create a Purchase Button block
+POST {{baseUrl}}/blocks
+Content-Type: application/json
+
+{
+  "type": "PurchaseButton",
+  "order": 2,
+  "pageId": 1,
+  "content": "{\"text\":\"Buy Now\",\"link\":\"/checkout\",\"style\":\"primary\"}"
+}
+
+###
+# Create a Consultation Button block
+POST {{baseUrl}}/blocks
+Content-Type: application/json
+
+{
+  "type": "ConsultationButton",
+  "order": 3,
+  "pageId": 1,
+  "content": "{\"text\":\"Request Consultation\",\"email\":\"sales@example.com\"}"
+}
+
+###
+# Create a Sales Rep Card block
+POST {{baseUrl}}/blocks
+Content-Type: application/json
+
+{
+  "type": "SalesRepCard",
+  "order": 4,
+  "pageId": 1,
+  "content": "{\"name\":\"John Doe\",\"title\":\"Senior Sales Representative\",\"email\":\"john@example.com\",\"phone\":\"+1-555-0123\",\"photo\":\"/images/john.jpg\"}"
+}
+
+###
+# Update a block
+PUT {{baseUrl}}/blocks/{{blockId}}
+Content-Type: application/json
+
+{
+  "type": "PlanCard",
+  "order": 1,
+  "content": "{\"title\":\"Premium Plan UPDATED\",\"price\":\"$149/mo\",\"features\":[\"Feature 1\",\"Feature 2\",\"Feature 3\",\"Feature 4\"]}"
+}
+
+###
+# Reorder blocks
+POST {{baseUrl}}/blocks/page/{{pageId}}/reorder
+Content-Type: application/json
+
+{
+  "blockIds": [4, 1, 2, 3]
+}
+
+###
+# Delete a block
+DELETE {{baseUrl}}/blocks/{{blockId}}
+
+### Public Pages
+
+# Get published page (public access)
+GET {{baseUrl}}/public/company/{{companyId}}/page
+
+###
+# Get published page with sales rep tracking
+GET {{baseUrl}}/public/company/{{companyId}}/page?salesRepId=rep123
